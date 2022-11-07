@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@300;500&display=swap");
+body {
+  background-image: url("files/login-bg.jpg");
+  background-size: cover;
+  background-repeat: round;
+  background-attachment: fixed;
+}
+body:after {
+  content: "";
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  z-index: -1;
+}
+
+#login-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 300px;
+}
+#login-box h1 {
+  font-family: "Noto Serif Bengali", serif;
+  font-weight: 500;
+  color: white;
+  margin: 0 auto;
+  width: fit-content;
+  padding-bottom: 20px;
+}
+#login-box form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 200px;
+  margin: 0 auto;
+}
+#login-box form #login-sigin-box {
+  margin-top: 20px;
+}
+#login-box form #login-sigin-box input[type=submit], #login-box form #login-sigin-box button {
+  font-size: 1.1em;
+  font-family: "Noto Serif Bengali", serif;
+  font-weight: 300;
+  padding: 5px 10px;
+  background-color: #1a1a1a;
+  border: #edd77e 1px solid;
+  color: #edd77e;
+  border-radius: 4px;
+}
+#login-box form #login-sigin-box input[type=submit] {
+  margin-right: 40px;
+}
+#login-box form #login-sigin-box a {
+  text-decoration: none;
+  color: #edd77e;
+}
+#login-box form > input {
+  font-family: "Noto Serif Bengali", serif;
+  font-weight: 300;
+  color: white;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+  padding: 5px;
+  padding-left: 15px;
+  border: #edd77e 1px solid;
+  background-color: #1a1a1a;
+  border-radius: 4px;
+}
+#login-box form > input::placeholder {
+  color: #b5b5b5;
+}
+
+/*# sourceMappingURL=login.css.map */
