@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@300;500&display=swap");
 body {
-  background-image: url("files/login-bg.jpg");
+  background-image: url("assets/login-bg.jpg");
   background-size: cover;
   background-repeat: round;
   background-attachment: fixed;
@@ -73,6 +73,17 @@ body:after {
 }
 #login-box form > input::placeholder {
   color: #b5b5b5;
+}
+
+#author-box {
+  width: 99.425%;
+  position: absolute;
+  bottom: 0;
+}
+#author-box > p {
+  color: white;
+  width: fit-content;
+  margin: 50px auto;
 }
 
 /*# sourceMappingURL=login.css.map */

@@ -8,9 +8,9 @@ const server = http.createServer((req, res) => {
 	var path;
 	var loginData;
 	let returnFile = true;
-	let isMedia = /^\/files\//.test(req.url);
+	let isAssets = /^\/assets\//.test(req.url);
 
-	if (!isMedia) {
+	if (!isAssets && req.url.indexOf(".") <= -1 ) {
 		path = "view/"
 		switch (req.url) {
 			case "/sendlogin": {
@@ -28,9 +28,13 @@ const server = http.createServer((req, res) => {
 			} case "/login": {
 				path += "login.ejs";
 				break;
+			} case "/" : {
+				res.statusCode = 301;
+				res.setHeader("Location", "/login");
+				break;
 			} default: {
 				res.statusCode = 404;
-				res.end("404");
+				path += "404.ejs";
 				break;
 			}
 		}
@@ -40,17 +44,32 @@ const server = http.createServer((req, res) => {
 	
 		if ( ext === "css" | ext === "map" ) { path = "./css/" }
 		else if ( ext === "jpg" ) { path = "./images/" }
+		else {
+			console.log("[REJECTED] " + req.method + " " + req.url);
+			returnFile = false;
+			res.statusCode = 404;
+			res.write("Asset or file does not exist")
+			res.end();
+		}
 		path += filename;
 	}
 	
 	if (returnFile) {
 		fs.readFile(path, (err, data) => {
-			if (!isMedia) {
-				console.log(req.method + " " + req.url);
-				res.end(ejs.render(data.toString()))
+			if (err) {
+				console.log(req.url + " " + path);
+				console.log(err);
+				res.write("We are having some troubles...");
+				res.statusCode = 500;
+				res.end();
 			} else {
-				console.log(req.method + " " + req.url);
-				res.end(data)
+				if (!isAssets && req.url.indexOf(".") <= -1 ) {
+					console.log(req.method + " " + req.url);
+					res.end(ejs.render(data.toString()))
+				} else {
+					console.log(req.method + " " + req.url);
+					res.end(data)
+				}
 			}
 		});
 	}
