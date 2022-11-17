@@ -29,6 +29,7 @@ const server = http.createServer((req, res) => {
 				path += "login.ejs";
 				break;
 			} case "/" : {
+				returnFile = false;
 				res.statusCode = 301;
 				res.setHeader("Location", "/login");
 				break;
@@ -64,14 +65,17 @@ const server = http.createServer((req, res) => {
 				res.end();
 			} else {
 				if (!isAssets && req.url.indexOf(".") <= -1 ) {
-					console.log(req.method + " " + req.url);
+					console.log(req.method + " " + req.url + " " + res.statusCode);
 					res.end(ejs.render(data.toString()))
 				} else {
-					console.log(req.method + " " + req.url);
+					console.log(req.method + " " + req.url + " " + res.statusCode);
 					res.end(data)
 				}
 			}
 		});
+	} else {
+		console.log(`${req.method} ${req.url} ${res.statusCode}`);
+		res.end()
 	}
 })()}).listen(3000, () => {
 	console.log("Listening on 3000");
