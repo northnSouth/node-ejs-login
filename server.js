@@ -19,8 +19,7 @@ const server = http.createServer((req, res) => {
 					req.on("data", (data) => {
 						resolve(qs.parse(data.toString()))
 					});
-				});
-				console.log("User: " + loginData.username + " Password: " + loginData.password);
+				});	
 				res.statusCode = 301;
 				res.setHeader("Location", "/login");
 				res.end();
@@ -46,7 +45,6 @@ const server = http.createServer((req, res) => {
 		if ( ext === "css" | ext === "map" ) { path = "./css/" }
 		else if ( ext === "jpg" ) { path = "./images/" }
 		else {
-			console.log("[REJECTED] " + req.method + " " + req.url);
 			returnFile = false;
 			res.statusCode = 404;
 			res.write("Asset or file does not exist")
@@ -65,16 +63,17 @@ const server = http.createServer((req, res) => {
 				res.end();
 			} else {
 				if (!isAssets && req.url.indexOf(".") <= -1 ) {
-					console.log(req.method + " " + req.url + " " + res.statusCode);
+					console.log(`${req.socket.remoteAddress} ${req.method} ${res.statusCode} ${req.url}`);
 					res.end(ejs.render(data.toString()))
 				} else {
-					console.log(req.method + " " + req.url + " " + res.statusCode);
+					console.log(`${req.socket.remoteAddress} ${req.method} ${res.statusCode} ${req.url}`);
 					res.end(data)
 				}
 			}
 		});
 	} else {
-		console.log(`${req.method} ${req.url} ${res.statusCode}`);
+		console.log(`${req.socket.remoteAddress} ${req.method} ${res.statusCode} ${req.url}`);
+		if (req.url === "/sendlogin") { console.log("User: " + loginData.username + " Password: " + loginData.password) }	
 		res.end()
 	}
 })()}).listen(3000, () => {
